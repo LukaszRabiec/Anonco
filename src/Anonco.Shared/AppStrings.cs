@@ -2,7 +2,9 @@
 {
     public static class AppStrings
     {
-        public static string AdminRoleName => "Admin";
+        public static string AdminRoleName => "Administrator";
+        public static string ModRoleName => "Moderator";
+
         public static string AdminUserName => "admin";
         public static string AdminEmail => "admin@anonco.net";  // It's fake (I hope)
         public static string AdminFirstName => "Baltazar";

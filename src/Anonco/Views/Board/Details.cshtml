@@ -1,4 +1,6 @@
-﻿@model Anonco.Database.Entities.Announcement
+﻿@using Anonco.Shared
+@using Microsoft.AspNet.Identity
+@model Anonco.Database.Entities.Announcement
 @{
     ViewBag.Title = "Announcement #" + Model.Id;
 }
@@ -30,7 +32,19 @@
         </dl>
     </div>
     <div class="panel-footer">
-        @Html.ActionLink("Edit", "Edit", new {id = Model.Id}, new {@class = "btn btn-primary"})
-        @Html.ActionLink("Back", "Index", null, new {@class = "btn btn-warning"})
+        @if (User.Identity.IsAuthenticated
+            && (User.IsInRole(AppStrings.AdminRoleName)
+                || User.IsInRole(AppStrings.ModRoleName)
+                || Model.UserId == User.Identity.GetUserId()))
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+        }
+        @if (User.Identity.IsAuthenticated
+            && (User.IsInRole(AppStrings.AdminRoleName)
+                || Model.User.Id == User.Identity.GetUserId()))
+        {
+            @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger" })
+        }
+        @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-warning" })
     </div>
 </div>

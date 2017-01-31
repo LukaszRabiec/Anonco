@@ -1,4 +1,5 @@
 ﻿@using Anonco.Shared
+@using Microsoft.AspNet.Identity
 @model IEnumerable<Anonco.Database.Entities.Announcement>
 @{
     ViewBag.Title = "Announcements";
@@ -35,8 +36,19 @@
                     <td>@announcement.AdditionDate.Date.ToShortDateString()</td>
                     <td>
                         @Html.ActionLink(" ", "Details", new { id = announcement.Id }, new { @class = "btn btn-info glyphicon glyphicon-search" })
-                        @Html.ActionLink(" ", "Edit", new { id = announcement.Id }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
-                        @Html.ActionLink(" ", "Delete", new { id = announcement.Id }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+                        @if (User.Identity.IsAuthenticated
+                            && (User.IsInRole(AppStrings.AdminRoleName)
+                                || User.IsInRole(AppStrings.ModRoleName)
+                                || announcement.User.Id == User.Identity.GetUserId()))
+                        {
+                            @Html.ActionLink(" ", "Edit", new { id = announcement.Id }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
+                        }
+                        @if (User.Identity.IsAuthenticated
+                            && (User.IsInRole(AppStrings.AdminRoleName)
+                                || announcement.User.Id == User.Identity.GetUserId()))
+                        {
+                            @Html.ActionLink(" ", "Delete", new { id = announcement.Id }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+                        }
                     </td>
                 </tr>
                 i++;

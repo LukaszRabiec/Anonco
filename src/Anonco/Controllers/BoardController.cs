@@ -19,9 +19,12 @@ namespace Anonco.Controllers
             _announcementRepository = announcementRepository;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var announcements = _announcementRepository.GetAll();
+            int currentPage = page ?? 1;
+            int pageSize = 5;
+
+            var announcements = _announcementRepository.GetPage(currentPage, pageSize);
 
             return View(announcements.ToList());
         }
@@ -43,6 +46,7 @@ namespace Anonco.Controllers
             return View(announcement);
         }
 
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -56,11 +60,17 @@ namespace Anonco.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
+            if (announcement.UserId != User.Identity.GetUserId()
+                && !User.IsInRole(AppStrings.AdminRoleName))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
             return View(announcement);
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
@@ -79,13 +89,14 @@ namespace Anonco.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public ActionResult Create()
         {
             return View();
         }
 
-        //TODO: Dodać autoryzacje
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Announcement announcement)
         {
@@ -112,6 +123,7 @@ namespace Anonco.Controllers
             return View(announcement);
         }
 
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -126,10 +138,18 @@ namespace Anonco.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
+            if (announcement.UserId != User.Identity.GetUserId()
+                && !(User.IsInRole(AppStrings.AdminRoleName)
+                    || User.IsInRole(AppStrings.ModRoleName)))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             return View(announcement);
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Announcement announcement)
         {

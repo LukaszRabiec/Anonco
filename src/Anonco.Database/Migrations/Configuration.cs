@@ -19,6 +19,7 @@ namespace Anonco.Database.Migrations
         {
             SeedRoles(context);
             SeedAdminAccount(context);
+            SeedModAccount(context);
             SeedCategories(context);
             SeedAnnouncements(context);
             SeedAnnouncementCategory(context);
@@ -36,6 +37,14 @@ namespace Anonco.Database.Migrations
 
                 roleManager.Create(role);
             }
+
+            if (!roleManager.RoleExists(AppStrings.ModRoleName))
+            {
+                var role = new IdentityRole();
+                role.Name = AppStrings.ModRoleName;
+
+                roleManager.Create(role);
+            }
         }
 
         // I know it's not the best solution. It's temporary.
@@ -46,7 +55,7 @@ namespace Anonco.Database.Migrations
             var userStore = new UserStore<User>(context);
             var userManager = new UserManager<User>(userStore);
 
-            if (!context.Users.Any(u => u.UserName == AppStrings.AdminRoleName))
+            if (!context.Users.Any(u => u.UserName == AppStrings.AdminUserName))
             {
                 var admin = new User();
                 admin.UserName = AppStrings.AdminUserName;
@@ -60,6 +69,29 @@ namespace Anonco.Database.Migrations
                 if (adminResult.Succeeded)
                 {
                     userManager.AddToRole(admin.Id, AppStrings.AdminRoleName);
+                }
+            }
+        }
+
+        private void SeedModAccount(ApplicationDbContext context)
+        {
+            var userStore = new UserStore<User>(context);
+            var userManager = new UserManager<User>(userStore);
+
+            if (!context.Users.Any(u => u.UserName == "mod"))
+            {
+                var admin = new User();
+                admin.UserName = "mod";
+                admin.Email = "mod@anonco.net";
+                admin.FirstName = "Don";
+                admin.LastName = "Pedro";
+                admin.EmailConfirmed = true;
+
+                var adminResult = userManager.Create(admin, AppStrings.AdminPassword);
+
+                if (adminResult.Succeeded)
+                {
+                    userManager.AddToRole(admin.Id, AppStrings.ModRoleName);
                 }
             }
         }

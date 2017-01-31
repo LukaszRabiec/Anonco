@@ -18,7 +18,17 @@ namespace Anonco.Logic.Repositories.Concrete
 
         public IQueryable<Announcement> GetAll()
         {
-            var announcements = _context.Announcements.AsNoTracking();
+            var announcements = _context.Announcements.AsNoTracking().OrderByDescending(a => a.AdditionDate);
+            return announcements;
+        }
+
+        public IQueryable<Announcement> GetPage(int? page = 1, int? pageSize = 10)
+        {
+            var announcements = _context.Announcements
+                .OrderByDescending(a => a.AdditionDate)
+                .Skip((page.Value - 1) * pageSize.Value)
+                .Take(pageSize.Value);
+
             return announcements;
         }
 
