@@ -7,10 +7,10 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3>@ViewBag.Title</h3>
-        @if (TempData[AppStrings.ErrorName] != null)
+        @if (TempData[AppStrings.TempError] != null)
         {
             <div class="alert alert-danger" role="alert">
-                @Html.Raw(TempData[AppStrings.ErrorName])
+                @Html.Raw(TempData[AppStrings.TempError])
             </div>
         }
         <h4>Are you sure you want to delete?</h4>

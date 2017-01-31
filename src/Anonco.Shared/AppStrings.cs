@@ -9,7 +9,12 @@
         public static string AdminLastName => "Gąbka";
         public static string AdminPassword => "Zxc!23123";
 
-        public static string ErrorName => "error";
-        public static string OperationError => "An error occured during the operation.<br />Please try again.";
+        public static string TempError => "error";
+        public static string TempMessage => "message";
+
+        public static string ErrorOperation => "An error occured during the operation.<br />Please try again.";
+        public static string SuccessAdd => "Successfully added";
+        public static string SuccessEdit => "Successfully edited";
+        public static string SuccessDelete => "Successfully deleted";
     }
 }

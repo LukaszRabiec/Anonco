@@ -2,7 +2,7 @@
 @model Anonco.Database.Entities.Announcement
 
 @{
-    ViewBag.Title = "Create new announcement";
+    ViewBag.Title = "Edit announcement #" + Model.Id;
 }
 
 <div class="panel panel-default">
@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">Title:</label>
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Title, new {@class="form-control"})
+                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Title)
                     </div>
                 </div>
@@ -37,6 +37,9 @@
                         @Html.ValidationMessageFor(m => m.Content)
                     </div>
                 </div>
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.UserId)
+                @Html.HiddenFor(m => m.AdditionDate)
                 <h4>Contact:</h4>
                 <div class="form-group">
                     <label class="control-label col-md-2">Email:</label>
@@ -56,7 +59,7 @@
 
         </div>
         <div class="panel-footer">
-            <input type="submit" value="Add" class="btn btn-success"/>
+            <input type="submit" value="Save" class="btn btn-success" />
             @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-warning" })
         </div>
     }

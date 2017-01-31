@@ -64,18 +64,18 @@ namespace Anonco.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            _announcementRepository.Delete(id);
-
             try
             {
+                _announcementRepository.Delete(id);
                 _announcementRepository.SaveChanges();
             }
             catch
             {
-                TempData[AppStrings.ErrorName] = AppStrings.OperationError;
+                TempData[AppStrings.TempError] = AppStrings.ErrorOperation;
                 return RedirectToAction("Delete", new { id });
             }
 
+            TempData[AppStrings.TempMessage] = AppStrings.SuccessDelete;
             return RedirectToAction("Index");
         }
 
@@ -98,15 +98,57 @@ namespace Anonco.Controllers
                 {
                     _announcementRepository.Add(announcement);
                     _announcementRepository.SaveChanges();
+                    TempData[AppStrings.TempMessage] = AppStrings.SuccessAdd;
                     return RedirectToAction("Index");
                 }
                 catch
                 {
+                    TempData[AppStrings.TempError] = AppStrings.ErrorOperation;
                     return View(announcement);
                 }
             }
 
+            TempData[AppStrings.TempError] = AppStrings.ErrorOperation;
             return View(announcement);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var announcement = _announcementRepository.GetById((int)id);
+
+            if (announcement == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            return View(announcement);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Announcement announcement)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _announcementRepository.Update(announcement);
+                    _announcementRepository.SaveChanges();
+                }
+                catch
+                {
+                    TempData[AppStrings.TempError] = AppStrings.ErrorOperation;
+                    return View(announcement);
+                }
+            }
+
+            TempData[AppStrings.TempMessage] = AppStrings.SuccessEdit;
+            return RedirectToAction("Index");
         }
     }
 }

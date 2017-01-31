@@ -15,7 +15,9 @@
             <dt>Title:</dt>
             <dd>@Html.DisplayFor(m => m.Title)</dd>
             <dt>Content:</dt>
-            <dd>@Html.DisplayFor(m => m.Content)</dd>
+            <dd id="dd-message">
+                <span>@Html.DisplayFor(m => m.Content)</span>
+            </dd>
             <dt>Addition date:</dt>
             <dd>@Html.DisplayFor(m => m.AdditionDate.LocalDateTime)</dd>
         </dl>

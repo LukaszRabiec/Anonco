@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Anonco.Database.Entities.Announcement>
+﻿@using Anonco.Shared
+@model IEnumerable<Anonco.Database.Entities.Announcement>
 @{
     ViewBag.Title = "Announcements";
 }
@@ -6,12 +7,18 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3>@ViewBag.Title</h3>
+        @if (TempData[AppStrings.TempMessage] != null)
+        {
+            <div class="alert alert-info" role="alert">
+                @Html.Raw(TempData[AppStrings.TempMessage])
+            </div>
+        }
     </div>
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>#</th>
-                <th>UserName</th>
+                <th>Username</th>
                 <th>Title</th>
                 <th>Addition date</th>
                 <th>Actions</th>

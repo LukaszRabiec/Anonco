@@ -2,6 +2,7 @@
 
 namespace Anonco.Logic.Repositories.Concrete
 {
+    using System.Data.Entity;
     using Abstract;
     using Database;
     using Database.Entities;
@@ -29,6 +30,11 @@ namespace Anonco.Logic.Repositories.Concrete
         public void Add(Announcement announcement)
         {
             _context.Announcements.Add(announcement);
+        }
+
+        public void Update(Announcement announcement)
+        {
+            _context.Entry(announcement).State = EntityState.Modified;
         }
 
         public void Delete(int id)
