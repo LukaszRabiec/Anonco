@@ -26,7 +26,8 @@ namespace Anonco
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/errors.css",
-                      "~/Content/styles.css"));
+                      "~/Content/styles.css",
+                      "~/Content/PagedList.css"));
         }
     }
 }

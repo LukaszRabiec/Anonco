@@ -3,7 +3,7 @@
 @using PagedList.Mvc
 @model PagedList.IPagedList<Anonco.Database.Entities.Announcement>
 @{
-    ViewBag.Title = "Announcements";
+    ViewBag.Title = "My announcements";
 }
 
 <div class="panel panel-default">
@@ -20,33 +20,31 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>@Html.ActionLink("Username", "Index", new { sortOrder = ViewBag.UserSort })</th>
-                <th>@Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSort })</th>
-                <th>@Html.ActionLink("Addition date", "Index", new { sortOrder = ViewBag.DateSort })</th>
+                <th>Title</th>
+                <th>Addition date</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             @{ int i = 1; }
-            @foreach(var announcement in Model)
+            @foreach (var announcement in Model)
             {
                 <tr>
                     <td>@i</td>
-                    <td>@announcement.User.UserName</td>
                     <td>@announcement.Title</td>
                     <td>@announcement.AdditionDate.Date.ToShortDateString()</td>
                     <td>
                         @Html.ActionLink(" ", "Details", new { id = announcement.Id }, new { @class = "btn btn-info glyphicon glyphicon-search" })
                         @if (User.Identity.IsAuthenticated
-                            && (User.IsInRole(AppStrings.AdminRoleName)
-                                || User.IsInRole(AppStrings.ModRoleName)
-                                || announcement.User.Id == User.Identity.GetUserId()))
+                    && (User.IsInRole(AppStrings.AdminRoleName)
+                        || User.IsInRole(AppStrings.ModRoleName)
+                        || announcement.User.Id == User.Identity.GetUserId()))
                         {
                             @Html.ActionLink(" ", "Edit", new { id = announcement.Id }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
                         }
                         @if (User.Identity.IsAuthenticated
-                            && (User.IsInRole(AppStrings.AdminRoleName)
-                                || announcement.User.Id == User.Identity.GetUserId()))
+                    && (User.IsInRole(AppStrings.AdminRoleName)
+                        || announcement.User.Id == User.Identity.GetUserId()))
                         {
                             @Html.ActionLink(" ", "Delete", new { id = announcement.Id }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
                         }
@@ -61,6 +59,6 @@
         {
             @Html.ActionLink("Add announcement", "Create", null, new { @class = "btn btn-success" })
         }
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort }))
+        @Html.PagedListPager(Model, page => Url.Action("My", new { page }))
     </div>
 </div>

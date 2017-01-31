@@ -11,3 +11,15 @@
 th {
     background-color: #efefef;
 }
+
+#footer-pagination {
+    display: flex;
+}
+
+#footer-pagination > .pagination-container {
+    margin-left: auto;
+}
+
+#footer-pagination .pagination {
+    margin: 0;
+}

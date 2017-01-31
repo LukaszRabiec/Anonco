@@ -22,16 +22,6 @@ namespace Anonco.Logic.Repositories.Concrete
             return announcements;
         }
 
-        public IQueryable<Announcement> GetPage(int? page = 1, int? pageSize = 10)
-        {
-            var announcements = _context.Announcements
-                .OrderByDescending(a => a.AdditionDate)
-                .Skip((page.Value - 1) * pageSize.Value)
-                .Take(pageSize.Value);
-
-            return announcements;
-        }
-
         public Announcement GetById(int id)
         {
             return _context.Announcements.Find(id);
