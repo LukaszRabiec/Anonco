@@ -1,0 +1,56 @@
+﻿@model Anonco.Database.Entities.Announcement
+
+@{
+    ViewBag.Title = "Create new announcement";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>@ViewBag.Title</h3>
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="panel-body">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true)
+                <h4>Details:</h4>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Title:</label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Title, new {@class="form-control"})
+                        @Html.ValidationMessageFor(m => m.Title)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Content:</label>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(m => m.Content, 10, 0, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Content)
+                    </div>
+                </div>
+                <h4>Contact:</h4>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Email:</label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Phone number:</label>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.PhoneNumber)
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel-footer">
+            <input type="submit" value="Add" class="btn btn-success"/>
+            @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-warning" })
+        </div>
+    }
+</div>

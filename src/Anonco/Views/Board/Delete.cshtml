@@ -1,0 +1,49 @@
+﻿@using Anonco.Shared
+@model Anonco.Database.Entities.Announcement
+@{
+    ViewBag.Title = "Delete announcement #" + Model.Id;
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>@ViewBag.Title</h3>
+        @if (TempData[AppStrings.ErrorName] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @Html.Raw(TempData[AppStrings.ErrorName])
+            </div>
+        }
+        <h4>Are you sure you want to delete?</h4>
+    </div>
+    <div class="panel-body">
+        <h4>Details:</h4>
+        <dl class="dl-horizontal">
+            <dt>Author:</dt>
+            <dd>@Html.DisplayFor(m => m.User.FullName)</dd>
+            <dt>Title:</dt>
+            <dd>@Html.DisplayFor(m => m.Title)</dd>
+            <dt>Content:</dt>
+            <dd>@Html.DisplayFor(m => m.Content)</dd>
+            <dt>Addition date:</dt>
+            <dd>@Html.DisplayFor(m => m.AdditionDate.LocalDateTime)</dd>
+        </dl>
+        <h4>Contact:</h4>
+        <dl class="dl-horizontal">
+            <dt>Email:</dt>
+            <dd>@Html.DisplayFor(m => m.Email)</dd>
+            <dt>Phone:</dt>
+            <dd>@Html.DisplayFor(m => m.PhoneNumber)</dd>
+        </dl>
+    </div>
+    <div class="panel-footer">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-danger"/>
+                @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-warning" })
+            </div>
+        }
+    </div>
+</div>

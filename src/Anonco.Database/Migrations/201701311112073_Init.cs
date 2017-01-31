@@ -15,8 +15,8 @@ namespace Anonco.Database.Migrations
                     CategoryId = c.Int(nullable: false),
                 })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Announcement", t => t.AnnouncementId)
-                .ForeignKey("dbo.Category", t => t.CategoryId)
+                .ForeignKey("dbo.Announcement", t => t.AnnouncementId, cascadeDelete: true)
+                .ForeignKey("dbo.Category", t => t.CategoryId, cascadeDelete: true)
                 .Index(t => t.AnnouncementId)
                 .Index(t => t.CategoryId);
 
@@ -79,7 +79,7 @@ namespace Anonco.Database.Migrations
                     UserId = c.String(nullable: false, maxLength: 128),
                 })
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
-                .ForeignKey("dbo.User", t => t.UserId)
+                .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
 
             CreateTable(
@@ -90,8 +90,8 @@ namespace Anonco.Database.Migrations
                     RoleId = c.String(nullable: false, maxLength: 128),
                 })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.User", t => t.UserId)
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId)
+                .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
 

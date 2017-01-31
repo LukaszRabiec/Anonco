@@ -11,11 +11,11 @@
         public string Content { get; set; }
 
         [Required(ErrorMessage = "You must specify email.")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "It's not a correct e-mail.")]
         public string Email { get; set; }
 
         [RegularExpression("\\+[0-9]{2}[ ][0-9]{3}[ ][0-9]{3}[ ][0-9]{3}",
-            ErrorMessage = "Correct phone number: '+XX XXX XXX XXX'.")]
+            ErrorMessage = "Correct phone number: +XX XXX XXX XXX.")]
         public string PhoneNumber { get; set; }
     }
 }

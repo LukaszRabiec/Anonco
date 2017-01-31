@@ -16,7 +16,7 @@
                 .IsRequired();
 
             Property(a => a.Content)
-                .HasMaxLength(1024)     // Always round up :D
+                .HasMaxLength(1024)     // I like round numbers :D
                 .IsRequired();
 
             Property(a => a.Email)

@@ -102,9 +102,9 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="IoC\IdentityModule.cs" />
-    <Compile Include="Migrations\201701292342087_Init.cs" />
-    <Compile Include="Migrations\201701292342087_Init.Designer.cs">
-      <DependentUpon>201701292342087_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201701311112073_Init.cs" />
+    <Compile Include="Migrations\201701311112073_Init.Designer.cs">
+      <DependentUpon>201701311112073_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,8 +120,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701292342087_Init.resx">
-      <DependentUpon>201701292342087_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701311112073_Init.resx">
+      <DependentUpon>201701311112073_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

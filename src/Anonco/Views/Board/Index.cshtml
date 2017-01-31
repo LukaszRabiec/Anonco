@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Anonco.Database.Entities.Announcement>
+@{
+    ViewBag.Title = "Announcements";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>@ViewBag.Title</h3>
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>UserName</th>
+                <th>Title</th>
+                <th>Addition date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 1; }
+            @foreach(var announcement in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@announcement.User.UserName</td>
+                    <td>@announcement.Title</td>
+                    <td>@announcement.AdditionDate.Date.ToShortDateString()</td>
+                    <td>@Html.ActionLink(" ", "Details", new { id = announcement.Id }, new { @class = "btn btn-info glyphicon glyphicon-search" })
+                        @Html.ActionLink(" ", "Edit", new { id = announcement.Id }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
+                        @Html.ActionLink(" ", "Delete", new { id = announcement.Id }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })</td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+    <div class="panel-footer">
+        @*TODO: Ukryć przed niezalogowanymi*@
+        @Html.ActionLink("Add announcement", "Create", null, new {@class="btn btn-success"})
+    </div>
+</div>

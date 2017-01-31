@@ -50,7 +50,7 @@
     {
         [Required]
         [Display(Name = "Email")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "It's not a correct e-mail.")]
         public string Email { get; set; }
 
         [Required]
@@ -64,8 +64,17 @@
 
     public class RegisterViewModel
     {
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last name")]
+        public string LastName { get; set; }
+
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
+
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "It's not a correct e-mail.")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -84,7 +93,7 @@
     public class ResetPasswordViewModel
     {
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "It's not a correct e-mail.")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -105,7 +114,7 @@
     public class ForgotPasswordViewModel
     {
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "It's not a correct e-mail.")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }

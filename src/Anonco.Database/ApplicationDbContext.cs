@@ -27,7 +27,6 @@
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
             modelBuilder.Configurations.Add(new AnnouncementTypeConfiguration());
             modelBuilder.Configurations.Add(new CategoryTypeConfiguration());

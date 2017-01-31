@@ -13,7 +13,7 @@ namespace Anonco.Database.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201701292342087_Init"; }
+            get { return "201701311112073_Init"; }
         }
         
         string IMigrationMetadata.Source

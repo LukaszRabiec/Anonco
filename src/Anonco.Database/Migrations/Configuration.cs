@@ -1,5 +1,6 @@
 namespace Anonco.Database.Migrations
 {
+    using System;
     using System.Data.Entity.Migrations;
     using System.Linq;
     using Entities;
@@ -18,6 +19,9 @@ namespace Anonco.Database.Migrations
         {
             SeedRoles(context);
             SeedAdminAccount(context);
+            SeedCategories(context);
+            SeedAnnouncements(context);
+            SeedAnnouncementCategory(context);
         }
 
         private void SeedRoles(ApplicationDbContext context)
@@ -45,18 +49,71 @@ namespace Anonco.Database.Migrations
             if (!context.Users.Any(u => u.UserName == AppStrings.AdminRoleName))
             {
                 var admin = new User();
-                admin.UserName = "admin@anonco.net";
-                admin.Email = "admin@anonco.net";       //it's fake (I hope)
-                admin.FirstName = "Baltazar";
-                admin.LastName = "G¹bka";
+                admin.UserName = AppStrings.AdminUserName;
+                admin.Email = AppStrings.AdminEmail;
+                admin.FirstName = AppStrings.AdminFirstName;
+                admin.LastName = AppStrings.AdminLastName;
+                admin.EmailConfirmed = true;
 
-                var adminResult = userManager.Create(admin, "Zxc!23123");
+                var adminResult = userManager.Create(admin, AppStrings.AdminPassword);
 
                 if (adminResult.Succeeded)
                 {
                     userManager.AddToRole(admin.Id, AppStrings.AdminRoleName);
                 }
             }
+        }
+
+        private void SeedCategories(ApplicationDbContext context)
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                var category = new Category();
+                category.Id = i;
+                category.Name = $"Category {i}";
+                category.ParentId = i;
+
+                context.Set<Category>().AddOrUpdate(category);
+            }
+
+            context.SaveChanges();
+        }
+
+        private void SeedAnnouncements(ApplicationDbContext context)
+        {
+            var admin = context.Set<User>()
+                .FirstOrDefault(u => u.UserName == AppStrings.AdminUserName);
+
+            for (int i = 1; i <= 10; i++)
+            {
+                var announcement = new Announcement();
+                announcement.Id = i;
+                announcement.UserId = admin.Id;
+                announcement.Title = $"Title {i}";
+                announcement.Content = $"Content {i}";
+                announcement.Email = admin.Email;
+                announcement.PhoneNumber = "+48 123 456 789";
+                announcement.AdditionDate = DateTimeOffset.Now.AddDays(-i);
+
+                context.Set<Announcement>().AddOrUpdate(announcement);
+            }
+
+            context.SaveChanges();
+        }
+
+        private void SeedAnnouncementCategory(ApplicationDbContext context)
+        {
+            for (int i = 1; i < 10; i++)
+            {
+                var annCat = new AnnouncementCategory();
+                annCat.Id = i;
+                annCat.AnnouncementId = i / 2 + 1;
+                annCat.CategoryId = i / 2 + 2;
+
+                context.Set<AnnouncementCategory>().AddOrUpdate(annCat);
+            }
+
+            context.SaveChanges();
         }
     }
 }

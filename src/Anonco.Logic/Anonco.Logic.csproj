@@ -63,14 +63,19 @@
   <ItemGroup>
     <Compile Include="IoC\LogicModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Abstract\IAnnouncementRepository.cs" />
+    <Compile Include="Repositories\Concrete\AnnouncementRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Repositories\Abstract\" />
-    <Folder Include="Repositories\Concrete\" />
+    <ProjectReference Include="..\Anonco.Database\Anonco.Database.csproj">
+      <Project>{e67c37c1-8e5f-420b-a8d1-e25fbae21fc3}</Project>
+      <Name>Anonco.Database</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
