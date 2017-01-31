@@ -14,7 +14,7 @@
             </div>
         }
     </div>
-    <table class="table table-striped table-bordered">
+    <table class="table table-hover table-bordered">
         <thead>
             <tr>
                 <th>#</th>
@@ -33,16 +33,20 @@
                     <td>@announcement.User.UserName</td>
                     <td>@announcement.Title</td>
                     <td>@announcement.AdditionDate.Date.ToShortDateString()</td>
-                    <td>@Html.ActionLink(" ", "Details", new { id = announcement.Id }, new { @class = "btn btn-info glyphicon glyphicon-search" })
+                    <td>
+                        @Html.ActionLink(" ", "Details", new { id = announcement.Id }, new { @class = "btn btn-info glyphicon glyphicon-search" })
                         @Html.ActionLink(" ", "Edit", new { id = announcement.Id }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
-                        @Html.ActionLink(" ", "Delete", new { id = announcement.Id }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })</td>
+                        @Html.ActionLink(" ", "Delete", new { id = announcement.Id }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+                    </td>
                 </tr>
                 i++;
             }
         </tbody>
     </table>
     <div class="panel-footer">
-        @*TODO: Ukryć przed niezalogowanymi*@
-        @Html.ActionLink("Add announcement", "Create", null, new {@class="btn btn-success"})
+        @if (User.Identity.IsAuthenticated)
+        {
+            @Html.ActionLink("Add announcement", "Create", null, new { @class = "btn btn-success" })
+        }
     </div>
 </div>
