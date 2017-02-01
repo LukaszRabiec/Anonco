@@ -1,0 +1,57 @@
+﻿@using Anonco.Shared
+@using PagedList.Mvc
+@model PagedList.IPagedList<Anonco.Database.Entities.Category>
+@{
+    ViewBag.Title = "Categories";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>@ViewBag.Title</h3>
+        @if (TempData[AppStrings.TempMessage] != null)
+        {
+            <div class="alert alert-info" role="alert">
+                @Html.Raw(TempData[AppStrings.TempMessage])
+            </div>
+        }
+    </div>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Id</th>
+                <th>Parent Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 1; }
+            @foreach (var category in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@category.Name</td>
+                    <td>@category.Id</td>
+                    <td>@category.ParentId</td>
+                    <td>
+                        @if (User.Identity.IsAuthenticated
+                            && User.IsInRole(AppStrings.AdminRoleName))
+                        {
+                            @*@Html.ActionLink(" ", "Edit", new { id = category.Id }, new { @class = "btn btn-primary glyphicon glyphicon-pencil" })
+                            @Html.ActionLink(" ", "Delete", new { id = category.Id }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })*@
+                        }
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+    <div class="panel-footer" id="footer-pagination">
+        @if (User.Identity.IsAuthenticated)
+        {
+            @*@Html.ActionLink("Add category", "Create", null, new { @class = "btn btn-success" })*@
+        }
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort }))
+    </div>
+</div>

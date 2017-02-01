@@ -15,6 +15,7 @@
         public static string TempMessage => "message";
 
         public static string ErrorOperation => "An error occured during the operation.<br />Please try again.";
+        public static string ErrorAdminDelete => "You can't delete main administrator!";
         public static string SuccessAdd => "Successfully added";
         public static string SuccessEdit => "Successfully edited";
         public static string SuccessDelete => "Successfully deleted";

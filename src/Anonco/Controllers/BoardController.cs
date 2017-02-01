@@ -71,14 +71,14 @@ namespace Anonco.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error", HttpStatusCode.BadRequest);
             }
 
             var announcement = _announcementRepository.GetById((int)id);
 
             if (announcement == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View("Error", HttpStatusCode.NotFound); ;
             }
 
             return View(announcement);
@@ -88,19 +88,19 @@ namespace Anonco.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error", HttpStatusCode.BadRequest);
             }
 
             var announcement = _announcementRepository.GetById((int)id);
 
             if (announcement == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View("Error", HttpStatusCode.NotFound);
             }
             if (announcement.UserId != User.Identity.GetUserId()
                 && !User.IsInRole(AppStrings.AdminRoleName))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error", HttpStatusCode.BadRequest);
             }
 
             return View(announcement);
@@ -161,21 +161,21 @@ namespace Anonco.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error", HttpStatusCode.BadRequest);
             }
 
             var announcement = _announcementRepository.GetById((int)id);
 
             if (announcement == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                return View("Error", HttpStatusCode.NotFound);
             }
 
             if (announcement.UserId != User.Identity.GetUserId()
                 && !(User.IsInRole(AppStrings.AdminRoleName)
                     || User.IsInRole(AppStrings.ModRoleName)))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Error", HttpStatusCode.BadRequest);
             }
 
             return View(announcement);
