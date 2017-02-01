@@ -121,8 +121,8 @@ namespace Anonco.Database.Migrations
                 var announcement = new Announcement();
                 announcement.Id = i;
                 announcement.UserId = admin.Id;
-                announcement.Title = $"Title {i}";
-                announcement.Content = $"Content {i}";
+                announcement.Title = $"Lorem Ipsum {i}";
+                announcement.Content = AppStrings.LoremIpsum;
                 announcement.Email = admin.Email;
                 announcement.PhoneNumber = "+48 123 456 789";
                 announcement.AdditionDate = DateTimeOffset.Now.AddDays(-i);
